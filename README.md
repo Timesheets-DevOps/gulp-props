@@ -86,6 +86,20 @@ Append the extension (`.js` or `.json`) instead of replacing it.
 
 Useful if the property file doesn't have an extension.
 
+#### options.regexSub
+
+Type: `Array`
+
+Default: `null`
+
+Apply string replacements to property values.
+
+Consists of a 2D array of `[ [regex, 'replaceWith'],...[regex, 'replaceWith'] ]`.
+
+For example, use `[[ /\'/g , "\\'" ]]` to replace all single quotes with escaped single quote.
+
+Default replacement is `[[ /(?:[\\"'])/g, '\\$1' ]]`.
+
 ## License
 
 MIT © [Cristian Trifan](https://crissdev.com)

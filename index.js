@@ -55,6 +55,16 @@ function convertProps (file, buf, options) {
   }
 }
 
+function replaceRegexVals (value, regex ) {
+  let arrayLength = regex.length;
+  for (let i = 0; i < arrayLength; i++) {
+  	let match = regex[i][0];
+    let replace = regex[i][1];
+    value = value.replace( match, replace );
+  }
+	return value;
+}
+
 function props2json (buffer, options) {
   const props = propsParser.parse(buffer.toString('utf8'))
   let jsonValue
@@ -66,7 +76,7 @@ function props2json (buffer, options) {
       const fragment = compiledEntryTemplate({
         ns: options.namespace,
         key: key.replace(rKey, '\\$1'),
-        value: props[key].replace(rValue, '\\$1')
+        value: ( options.regexSub ) ? replaceRegexVals(props[key], options.regexSub) : props[key].replace(rValue, '\\$1')
       })
       output.push(fragment)
     }
